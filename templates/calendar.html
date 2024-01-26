@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日曆 - 營養助手</title>
+
+    <!-- 引入 FullCalendar 的 CSS 樣式表 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css">
+    
+    <!-- 引入自定義的 CSS 文件 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_calendar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- 引入 FullCalendar 的 JavaScript 文件及其依賴 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
+</head>
+<body>
+
+<!-- FullCalendar 容器 -->
+<div id="calendar"></div>
+
+<!-- 初始化 FullCalendar 的 JavaScript 代碼 -->
+<script>
+    $(document).ready(function() {
+        // 初始化 FullCalendar
+        var calendar = $('#calendar').fullCalendar({
+            // 配置選項
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            selectable: true, // 啟用可選擇時間範圍
+            selectHelper: true, // 啟用拖曳以選擇時間範圍的幫助線
+            select: function(start, end) {
+                // 在選擇時間範圍時的處理
+                var title = prompt('請輸入事件標題:');
+                if (title) {
+                    // 如果標題不為空，則在 FullCalendar 中新增事件
+                    calendar.fullCalendar('renderEvent', {
+                        title: title,
+                        start: start,
+                        end: end,
+                        allDay: false // 不是全天事件
+                    }, true); // true 表示立即刷新 FullCalendar
+                }
+                calendar.fullCalendar('unselect'); // 清除選擇
+            },
+            events: [
+                // 事件數據，可根據需求調整
+                {
+                    title: '活動1',
+                    start: '2024-01-01T10:00:00',
+                    end: '2024-01-01T12:00:00'
+                },
+                {
+                    title: '活動2',
+                    start: '2024-01-05T14:00:00',
+                    end: '2024-01-07T16:00:00'
+                },
+                // 更多事件...
+            ],
+            eventClick: function(event) {
+                // 事件被點擊時的處理
+                if (confirm("確定要刪除事件 '" + event.title + "' 嗎？")) {
+                    // 如果確定刪除，則在 FullCalendar 中刪除事件
+                    calendar.fullCalendar('removeEvents', event._id);
+                }
+            }
+        });
+    });
+</script>
+<nav>
+    <li><a href="{{ url_for('home') }}">Back to Main Page</a></li>
+</nav>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chat Box</title>
+    <!-- 引入自定義的 CSS 文件 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_chat.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <li><a href="{{ url_for('home') }}">Back to Main Page</a></li>
+    </nav>
+    <!-- 對話框容器 -->
+    <div class="chat-box">
+        <!-- 對話歷史 -->
+        <div class="chat-history" id="chatHistory">
+            <!-- 系統訊息 -->
+            <div class="message-box clearfix">
+                <p>System: Welcome to the chat!</p>
+            </div>
+
+            <!-- 用戶訊息 -->
+            <div class="user-message clearfix">
+                <p>User: Hello, what's for dinner?</p>
+            </div>
+
+            <!-- 機器人訊息 -->
+            <div class="message-box clearfix">
+                <p>Bot: Hi there! I can help you with dinner suggestions.</p>
+            </div>
+
+            <!-- 其他訊息... -->
+        </div>
+
+        <!-- 用戶輸入框 -->
+        <div class="user-input clearfix">
+            <input type="text" id="userInput" placeholder="Type your message">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <!-- 引入 components.html 中的返回首頁按鈕 -->
+    <!-- <div class="back-to-home-container">
+        <link rel="import" href="components.html">
+    </div> -->
+
+    <script>
+        function sendMessage() {
+            var userInput = document.getElementById('userInput').value;
+            if (userInput.trim() !== '') {
+                var chatHistory = document.getElementById('chatHistory');
+                var userMessage = document.createElement('div');
+                userMessage.className = 'user-message clearfix';
+                userMessage.innerHTML = '<p>User: ' + userInput + '</p>';
+                chatHistory.appendChild(userMessage);
+                
+                // 清空輸入框
+                document.getElementById('userInput').value = '';
+            }
+        }
+        // 監聽 input 欄位的 keydown 事件
+        document.getElementById('userInput').addEventListener('keydown', function(event) {
+            // 如果按下的是 Enter 鍵（keyCode 為 13）
+            if (event.keyCode === 13) {
+                // 取消預設的 Enter 行為
+                event.preventDefault();
+                // 觸發 sendMessage 函式
+                sendMessage();
+            }
+        }); 
+    </script>
+
+</body>
+</html>

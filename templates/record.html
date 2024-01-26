@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Records</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_record.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <nav>
+        <li><a href="{{ url_for('home') }}">Back to Main Page</a></li>
+    </nav>
+    <h2>Diet Records - Today</h2>
+    <!-- 用戶目標設定 -->
+    <div class="user-goals">
+        <h2>Target</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Total Meal</th>
+                    <th>Calories</th>
+                    <th>Protein (g)</th>
+                    <th>Fat (g)</th>
+                    <th>Carbs (g)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 表格內容會動態填充 -->
+                <tr>
+                    <td contenteditable="true" id="meal_count">4</td>
+                    <td contenteditable="true" id="calories">2000</td>
+                    <td contenteditable="true" id="protein">140</td>
+                    <td contenteditable="true" id="fat">60</td>
+                    <td contenteditable="true" id="carbs">180</td>
+                </tr>
+                <!-- 其他餐點... -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 用戶飲食紀錄 -->
+    <div class="user-records">
+        <h2>Already eaten today</h2>
+        <table id="user-records_table">
+            <thead>
+                <tr>
+                    <th>Meal</th>
+                    <th>Time</th>
+                    <th>Food Name</th>
+                    <th>Calories</th>
+                    <th>Protein (g)</th>
+                    <th>Fat (g)</th>
+                    <th>Carbs (g)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 表格內容會動態填充 -->
+                <tr>
+                    <td>1</td>
+                    <td>19:20</td>
+                    <td>Oatmeal</td>
+                    <td>150</td>
+                    <td>5</td>
+                    <td>3</td>
+                    <td>30</td>
+                </tr>
+                <!-- 其他餐點... -->
+            </tbody>
+        </table>
+    </div>
+    <!-- 營養素百分比圖 -->
+    <div class="nutrient-percentage">
+        <h2>Achievement rate</h2>
+        <div class="percentage-bar">
+            <label for="calories">Calories</label>
+            <progress id="calories" value="30" max="100"></progress>
+            <span>30%</span>
+        </div>
+        <div class="percentage-bar">
+            <label for="protein">Protein (g)</label>
+            <progress id="protein" value="50" max="100"></progress>
+            <span>50%</span>
+        </div>
+        <div class="percentage-bar">
+            <label for="fat">Fat (g)</label>
+            <progress id="fat" value="20" max="100"></progress>
+            <span>20%</span>
+        </div>
+        <div class="percentage-bar">
+            <label for="carbs">Carbs (g)</label>
+            <progress id="carbs" value="40" max="100"></progress>
+            <span>40%</span>
+        </div>
+    </div>
+</body>
+</html>

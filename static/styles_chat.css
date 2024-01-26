@@ -1,0 +1,72 @@
+/* styles.css */
+
+/* 對話框容器 */
+.chat-box {
+    max-width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 對話歷史容器 */
+.chat-history {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* 訊息框 */
+.message-box {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* 對話框清除浮動 */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* 用戶訊息框 */
+.user-message {
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* 用戶輸入框 */
+.user-input {
+    margin-top: 10px;
+}
+
+/* 用戶輸入框中的文本輸入 */
+.user-input input {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-right: 5px;
+}
+
+/* 用戶輸入框中的按鈕 */
+.user-input button {
+    padding: 10px 15px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* 用戶輸入框中的按鈕懸浮效果 */
+.user-input button:hover {
+    background-color: #45a049;
+}

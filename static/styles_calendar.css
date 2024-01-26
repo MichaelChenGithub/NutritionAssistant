@@ -1,0 +1,19 @@
+/* styles_calendar.css */
+
+/* 增加上邊距 (margin-top) 為 20px */
+.fc {
+    margin: 20px;
+}
+
+.fc-button {
+    font-weight: bold;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px 15px;
+
+}
+
+.fc-button:hover {
+    background-color: #eee;
+}

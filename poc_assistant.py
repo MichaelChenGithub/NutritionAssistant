@@ -15,7 +15,7 @@ def main():
         # Step 2: Create a Thread
         st.session_state.thread = st.session_state.client.beta.threads.create()
 
-    user_query = st.text_input("Enter your query:", "Tell me about some food suggestions")
+    user_query = st.text_input("Enter your query:", "I need 10g protein. Do you have any food suggestions?")
     intstructions_string = """
         ShenNutritionGPT provides dietary recommendations \
         based on your nutritional needs through your food preferences. \
@@ -56,7 +56,7 @@ def main():
                 )
 
                 # Loop through messages and print content based on role
-                for msg in messages.data:
+                for msg in messages.data[::-1]:
                     role = msg.role
                     content = msg.content[0].text.value
                     st.write(f"{role.capitalize()}: {content}")

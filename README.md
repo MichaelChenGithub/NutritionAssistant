@@ -5,7 +5,6 @@ I am entering my fourth year of fitness, and I still haven't found a user-friend
 ## Main Features
 
 Based on the user's dietary needs, the AI assistant will provide:
-
 1. Nutritional knowledge (e.g., nutritional requirements based on the user's training goals)
 2. Restaurant meals (e.g., Subways, TGI Friday's)
 3. Recipes (e.g., red wine-braised beef, poached chicken breast)
@@ -13,7 +12,6 @@ Based on the user's dietary needs, the AI assistant will provide:
 ## Secondary Features
 
 Assist users in recording and tracking their diet by providing:
-
 1. Automatic food import functionality by the AI assistant
 2. Calendar
 3. Tracking chart
@@ -21,14 +19,11 @@ Assist users in recording and tracking their diet by providing:
 ## Project Plan
 ### Phase 1 - Data collection and assistant API implementation
 #### Data collection
-
 - [ ]  Nutritional knowledge
 - [x]  Foundation food
 - [x]  Restaurant meals
 - [ ]  Recipes
-
 #### Assistant API implementation
-
 - [x]  Nutrition assistant
 - [x]  POC assistant through **streamlit**
 - [ ]  Model evaluation

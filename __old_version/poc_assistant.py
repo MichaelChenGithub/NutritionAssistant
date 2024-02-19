@@ -1,27 +1,23 @@
 from openai import OpenAI
 import time
 import streamlit as st
-from sk import OPENAI_API_KEY
+import os
 
 def main():
 
     if 'client' not in st.session_state:
         # Initialize the client
-        st.session_state.client = OpenAI(api_key=OPENAI_API_KEY)
+        st.session_state.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
         # Step 1: Retrive the assistant
-        st.session_state.assistant = st.session_state.client.beta.assistants.retrieve("asst_Z4knqwOe9olvisDtzZGP0Fxo")
+        st.session_state.assistant = st.session_state.client.beta.assistants.retrieve("asst_7E70IdG25WQimV0ZPrKw7yAM")
 
         # Step 2: Create a Thread
         st.session_state.thread = st.session_state.client.beta.threads.create()
 
     user_query = st.text_input("Enter your query:", "I need 10g protein. Do you have any food suggestions?")
     intstructions_string = """
-        ShenNutritionGPT provides dietary recommendations \
-        based on your nutritional needs through your food preferences. \
-        In addition to recommending basic ingredients, it can also suggest \
-        suitable options for dining out and prepare recipes for you, \
-        making it much easier for you to control your diet.
+        You are a nutrition assistant, answer the question as a nutritionist.
     """
 
     if st.button('Submit'):

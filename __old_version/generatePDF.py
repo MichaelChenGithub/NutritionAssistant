@@ -10,6 +10,9 @@ def df2pdf(df, output_file):
     pdf = SimpleDocTemplate(pdf_filename, pagesize=letter)
     data = [df.columns[:,].values.astype(str)] + df.values.tolist()
 
+    # # 計算列寬
+    # num_cols = len(df.columns)
+    # col_widths = [100] * num_cols  # 初始化列寬，這裡假設每列寬度為100
     # 創建表格
     t = Table(data)
 
@@ -21,8 +24,7 @@ def df2pdf(df, output_file):
                         ('BOTTOMPADDING', (0, 0), (-1, 0), 2),
                         ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
                         ('GRID', (0, 0), (-1, -1), 1, colors.black),
-                        ('FONTSIZE', (0, 0), (-1, -1), 6)]))
-
+                        ('FONTSIZE', (0, 0), (-1, -1), 4)]))
     # 將表格添加到 PDF 文件
     pdf.build([t])
 

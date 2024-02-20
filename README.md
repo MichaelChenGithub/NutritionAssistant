@@ -4,10 +4,12 @@ I am entering my fourth year of fitness, and I still haven't found a user-friend
 
 ## Features
 ### Main Features
+
 *** Provide Reliable Website Source Nutrition Information including: ***
 1. Nutritional knowledge (e.g., nutritional requirements based on the user's training goals)
 2. Restaurant meals (e.g., Subways, TGI Friday's)
 3. Recipes (e.g., red wine-braised beef, poached chicken breast)
+
 *** Personalized Diet Based on User’s Target (e.g. Fitness Body Plan, Medical Dietary Requirements) ***
 4. Personalized nutritional recommendation System
 ### Secondary Features

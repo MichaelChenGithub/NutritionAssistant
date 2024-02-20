@@ -1,24 +1,25 @@
 from assistant_tool_recipe import * 
+from assistant_tool_nutrition import * 
 from openai import OpenAI
 import time
+import json
 import streamlit as st
 import os
 
 def main():
-    # os.getenv("OPENAI_API_KEY")
     if 'client' not in st.session_state:
         # Initialize the client
-        st.session_state.client = OpenAI(api_key="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")
+        st.session_state.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
         # Step 1: Retrive the assistant
-        st.session_state.assistant = st.session_state.client.beta.assistants.retrieve("asst_DKREerjiduZKd1Lpxw3XXFNu")
+        st.session_state.assistant = st.session_state.client.beta.assistants.retrieve("asst_gB2efcBXZVufEh6e8IoXRn33")
 
         # Step 2: Create a Thread
         st.session_state.thread = st.session_state.client.beta.threads.create()
 
     user_query = st.text_input("Enter your query:", "I need 10g protein. Do you have any food suggestions?")
     intstructions_string = """
-        You are a nutrition assistant, answer the question as a nutritionist.
+        As a nutrition assistant, please provide the best nutritional advice based on your knowledge and collected data.
     """
 
     if st.button('Submit'):
@@ -45,7 +46,14 @@ def main():
                 thread_id= st.session_state.thread.id,
                 run_id=run.id
             )
-            # print(run_status.model_dump_json(indent=4))
+            print(run_status.model_dump_json(indent=4))
+
+            # Define a dispatch table
+            function_dispatch_table = {
+                "get_recipe": get_recipe,
+                "get_nutrition_with_nlp": get_nutrition_with_nlp,
+                "get_food_options": get_food_options
+            }
 
             # If run is completed, get messages
             if run_status.status == 'completed':
@@ -58,33 +66,34 @@ def main():
                     role = msg.role
                     content = msg.content[0].text.value
                     st.write(f"{role.capitalize()}: {content}")
-
                 break
             elif run_status.status == 'requires_action':
-                # print("requires action")
-                # print("Function Calling")
+                print("Requires action")
                 required_actions = run_status.required_action.submit_tool_outputs.model_dump()
-                # print(required_actions)
-                tool_outputs = []
-                import json
+                print(required_actions)
+                tools_output = []
+
                 for action in required_actions["tool_calls"]:
-                    func_name = action['function']['name']
-                    arguments = json.loads(action['function']['arguments'])
-                    # print(arguments)
-                    if func_name == "get_recipe":
-                        output = get_recipe(query=arguments['query'])
-                        tool_outputs.append({
-                            "tool_call_id": action['id'],
+                    func_name = action["function"]["name"]
+                    arguments = json.loads(action["function"]["arguments"])
+
+                    func = function_dispatch_table.get(func_name)
+                    if func:
+                        result = func(**arguments)
+                        # Ensure the output is a JSON string
+                        output = json.dumps(result) if not isinstance(result, str) else result
+                        tools_output.append({
+                            "tool_call_id": action["id"],
                             "output": output
                         })
                     else:
-                        raise ValueError(f"Unknown function: {func_name}")
-                    
-                st.write("Submitting outputs back to the Assistant...")
+                        print(f"Function {func_name} not found")
+
+                # Submit the tool outputs to Assistant API
                 st.session_state.client.beta.threads.runs.submit_tool_outputs(
                     thread_id= st.session_state.thread.id,
                     run_id=run.id,
-                    tool_outputs=tool_outputs
+                    tool_outputs=tools_output
                 )
             else:
                 st.write("Waiting for the Assistant to process...")

@@ -22,7 +22,7 @@ def get_nutrition_with_nlp(query):
     except requests.exceptions.RequestException as e:
         return f"Error: {e}"
     
-def get_food_options(query):
+def find_restaurant_food(query):
     headers = {
         "Content-Type": "application/json",
         "x-app-id": os.getenv("NUTRITIONNIX_APP_ID"),
@@ -34,6 +34,7 @@ def get_food_options(query):
     try:
         response = requests.get(url, headers=headers)
         response.raise_for_status()  # if error happened, raise the error status
-        return response.json()
+        branded_food = response.json()["branded"]
+        return branded_food
     except requests.exceptions.RequestException as e:
         return {"error": f"Error: {e}"}

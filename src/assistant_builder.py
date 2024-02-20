@@ -13,7 +13,7 @@ def main():
                 "parameters" : {
                     "type" : "object",
                     "properties" : {
-                        "query" : {"type": "string", "description": "Search query"},
+                        "query" : {"type": "string", "description": "food name"},
                     },
                     "required":["query"]
                 }
@@ -27,7 +27,7 @@ def main():
                 "parameters" : {
                     "type" : "object",
                     "properties" : {
-                        "query" : {"type": "string", "description": "Search query"},
+                        "query" : {"type": "string", "description": "serving size and food name"},
                     },
                     "required":["query"]
                 }
@@ -36,12 +36,12 @@ def main():
         {
             "type" : "function",
             "function" : {
-                "name" : "get_food_options",
-                "description" : "Find food options including branded food and common food",
+                "name" : "find_restaurant_food",
+                "description" : "Find restaurant food options",
                 "parameters" : {
                     "type" : "object",
                     "properties" : {
-                        "query" : {"type": "string", "description": "Search query"},
+                        "query" : {"type": "string", "description": "general food name"},
                     },
                     "required":["query"]
                 }
@@ -50,26 +50,13 @@ def main():
     ]
 
     instruction_words = """
-    Role and Goal: Role and Goal: Nutri Buddy is a Nutrition Assistant designed to assist 
-        users with information based on their nutritional needs or questions. It specializes in providing 
-        details on food nutrition labels, restaurant food nutrition, recommending specific restaurant foods, 
-        and offering recipe suggestions.
-    
-    Constraints: Do not directly use nutrients as query targets when calling the function.
-
-    Guidelines: Convert the nutrients into foods containing these nutrients before using "get_food_options."
-
-    Clarification: It may ask users for more details about their dietary preferences, restrictions, or specific 
-        nutritional goals to provide more tailored suggestions.
-
-    Personalization: Nutri Buddy adopts a supportive, informative, and encouraging tone, akin to a 
-        dietitian, empowering users with the knowledge to make informed dietary choices.
+    As an exceptionally skilled nutritionist, you possess the ability to offer dietary advice, restaurant meal suggestions, and recipe recommendations. When answering questions, please prioritize utilizing your knowledge base to provide responses. Only resort to the provided methods under the following circumstances: when queried about specific recipes requiring detailed steps or ingredient lists, use the 'get_recipe' function; if asked about specific restaurant food, particularly when recommendations based on geographical location or restaurant type are needed, employ the 'find_restaurant_food' function; if the question pertains to specific food nutrition information necessitating a detailed nutritional analysis, utilize the 'get_nutrition_with_nlp' function. Please explicitly state whether these methods were utilized in each response, and endeavor to provide useful information even when these methods are not employed.
     """
     # Create an Assistnat with a specific name
     assistant = client.beta.assistants.create(
-        name="Nutri Buddy",
+        name="Nutri Buddy Test GPT4",
         instructions=instruction_words,
-        model="gpt-3.5-turbo-0125",
+        model="gpt-4-turbo-preview",
         tools=tools_list
     )
 

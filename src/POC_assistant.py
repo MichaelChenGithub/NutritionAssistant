@@ -12,14 +12,14 @@ def main():
         st.session_state.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
         # Step 1: Retrive the assistant
-        st.session_state.assistant = st.session_state.client.beta.assistants.retrieve("asst_gB2efcBXZVufEh6e8IoXRn33")
+        st.session_state.assistant = st.session_state.client.beta.assistants.retrieve("asst_ZTAFYXG4fdP2t57Wr5Nga85v")
 
         # Step 2: Create a Thread
         st.session_state.thread = st.session_state.client.beta.threads.create()
 
     user_query = st.text_input("Enter your query:", "I need 10g protein. Do you have any food suggestions?")
     intstructions_string = """
-        As a nutrition assistant, please provide the best nutritional advice based on your knowledge and collected data.
+        For basic dietary advice or information queries, the expectation is that the Assistant primarily relies on its extensive knowledge base to provide answers. Specific functions or methods should be reserved for cases where detailed recipes, restaurant recommendations, or comprehensive nutritional analyses are explicitly requested.
     """
 
     if st.button('Submit'):
@@ -52,7 +52,7 @@ def main():
             function_dispatch_table = {
                 "get_recipe": get_recipe,
                 "get_nutrition_with_nlp": get_nutrition_with_nlp,
-                "get_food_options": get_food_options
+                "find_restaurant_food": find_restaurant_food
             }
 
             # If run is completed, get messages

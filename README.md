@@ -1,6 +1,14 @@
 # NutritionAssistant
 ## Backgroud and Target
-I am entering my fourth year of fitness, and I still haven't found a user-friendly diet tracking tool to help me manage my diet progress. Therefore, I am trying to create a web application that integrates AI for intelligent diet logging and management. It will be able to provide personalized dietary recommendations and automatically record your eating habits. Additionally, it includes a calendar and tracking charts to make it convenient for fitness enthusiasts to monitor their progress.
+
+Fitness enthusiasts, health-conscious individuals, and elderly patients alike require effective dietary management. However, the current market lacks a comprehensive app that provides precise nutritional insights, diverse meal options, and recipes designed to meet these needs. The barriers of high costs associated with gaining nutritional knowledge and identifying suitable foods often deter individuals from maintaining proper dietary habits.
+
+Recent research featured in the Journal of the American Medical Association (JAMA), titled "Consistency and Accuracy of Artificial Intelligence for Providing Nutritional Information (https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2813295?utm_source=For_The_Media&utm_medium=referral&utm_campaign=ftm_links&utm_term=122723)," underscores ChatGPT's foundational understanding of nutrition. This insight paves the way for employing GPT technology in conjunction with Retrieval-Augmented Generation (RAG) to develop a sophisticated AI Nutritionist Assistant, aimed at revolutionizing dietary management.
+
+## Technologies Used
+- Programming Languages:Python
+- Frameworks and Libraries: OpenAI Assistant API, Langchain
+- Tools and Platforms: Streamlit
 
 ## Features
 ### Main Features

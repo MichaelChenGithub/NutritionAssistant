@@ -26,7 +26,6 @@ def main():
     if prompt := st.chat_input():
         st.chat_message("user").write(prompt)
         with st.chat_message("assistant"):
-            st.write("🧠 thinking...")
             ### assistant generate answer
             # Step 3: Add a Message to a Thread
             message = st.session_state.client.beta.threads.messages.create(
@@ -44,6 +43,7 @@ def main():
             
             while True:
                 # Wait for 5 seconds
+                st.write("🧠 thinking...")
                 time.sleep(5)
 
                 # Retrieve the run status
@@ -101,6 +101,7 @@ def main():
                         tool_outputs=tools_output
                     )
                 else:
+                    st.write("🧠 thinking...")
                     time.sleep(5)
         
 

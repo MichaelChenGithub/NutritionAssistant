@@ -11,7 +11,7 @@ def main():
     st.set_page_config(page_title="Nourish X", page_icon="🥚")
     st.title("🥚 Nourish X")
     # OPENAI_APIKEY = os.environ.get("OPEN_AI_KEY")
-    openai_api_key_input = st.sidebar.text_input("OpenAI API Key", type="password")
+    openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
 
     if 'messages' not in st.session_state:
         st.session_state["messages"] = [
@@ -25,11 +25,9 @@ def main():
         st.empty()
         st.chat_message("user").write(prompt)
         
-        if not openai_api_key_input:
+        if not openai_api_key:
             st.info("Please add your OpenAI API key to continue.")
             st.stop()
-        
-        openai_api_key = openai_api_key_input
 
         try:
             assistant_id = "asst_kjXxune3YNpmyZ6dMbij9W1m"
@@ -44,9 +42,11 @@ def main():
                     response = agent_executor.invoke({"content": prompt, "thread_id": st.session_state.thread_id})
                 st.session_state.messages.append({"role": "assistant", "content": response["output"]})
                 st.write(response["output"])
-        except:
-            st.info("Your OpenAI API KEY is unavailable or not correct.")
-            st.stop()
+        # except:
+        #     st.info("Your OpenAI API KEY is unavailable or not correct.")
+        #     st.stop()
+        except Exception as e:  # 捕获所有可能的异常
+            st.error(f"An error occurred: {e}")
 
 if __name__ == '__main__':
     main()

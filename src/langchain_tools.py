@@ -15,9 +15,9 @@ class RestaurantInput(BaseModel):
 
 def get_tools():
     recipe_tool = StructuredTool.from_function(
-        func=get_recipe,
-        name="get_recipe",
-        description="Fetch recipes and cusine nutrition",
+        func=search_meal_by_name,
+        name="search_meal_by_name",
+        description="Fetch recipes and cusine ingredient and steps",
         args_schema=RecipeInput
     )
     nutrition_tool = StructuredTool.from_function(

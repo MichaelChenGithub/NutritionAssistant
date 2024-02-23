@@ -9,8 +9,8 @@ from openai import OpenAI
 load_dotenv()
 
 def main():
-    st.set_page_config(page_title="Nourish X", page_icon="🥚")
-    st.title("🥚 Nourish X")
+    st.set_page_config(page_title="Nourish", page_icon="🥚")
+    st.title("🥚 Nourish")
     # OPENAI_APIKEY = os.environ.get("OPEN_AI_KEY")
     openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
 
@@ -31,8 +31,7 @@ def main():
             st.stop()
 
         try:
-            assistant_id = "asst_kjXxune3YNpmyZ6dMbij9W1m"
-            print(openai_api_key)
+            assistant_id = "asst_qn7nKhWFTr1I0920zvdP6lDe"
             agent = OpenAIAssistantRunnable(client= OpenAI(api_key=openai_api_key), assistant_id=assistant_id, as_agent=True)
             agent_executor = AgentExecutor(agent=agent, tools=get_tools())
             with st.chat_message("assistant"):

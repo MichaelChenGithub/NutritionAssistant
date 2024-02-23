@@ -4,6 +4,7 @@ from langchain.agents.openai_assistant import OpenAIAssistantRunnable
 from langchain.agents import AgentExecutor
 from langchain_tools import get_tools
 import streamlit as st
+from openai import OpenAI
 
 load_dotenv()
 
@@ -31,7 +32,8 @@ def main():
 
         try:
             assistant_id = "asst_kjXxune3YNpmyZ6dMbij9W1m"
-            agent = OpenAIAssistantRunnable(assistant_id=assistant_id, openai_api_key=openai_api_key, as_agent=True)
+            print(openai_api_key)
+            agent = OpenAIAssistantRunnable(client= OpenAI(api_key=openai_api_key), assistant_id=assistant_id, as_agent=True)
             agent_executor = AgentExecutor(agent=agent, tools=get_tools())
             with st.chat_message("assistant"):
                 st.write("🧠 thinking...")

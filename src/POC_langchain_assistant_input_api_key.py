@@ -31,7 +31,7 @@ def main():
             st.stop()
         
         assistant_id = "asst_kjXxune3YNpmyZ6dMbij9W1m"
-        agent = OpenAIAssistantRunnable(assistant_id=assistant_id, openai_api_key=OPENAI_APIKEY, as_agent=True)
+        agent = OpenAIAssistantRunnable(assistant_id=assistant_id, openai_api_key=openai_api_key, as_agent=True)
         agent_executor = AgentExecutor(agent=agent, tools=get_tools())
         with st.chat_message("assistant"):
             st.write("🧠 thinking...")

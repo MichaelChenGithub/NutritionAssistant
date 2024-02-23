@@ -5,7 +5,7 @@ from langchain.agents import AgentExecutor
 from langchain_tools import get_tools
 import streamlit as st
 
-load_dotenv()
+# load_dotenv()
 
 def main():
     assistant_id = "asst_kjXxune3YNpmyZ6dMbij9W1m"
@@ -29,8 +29,10 @@ def main():
         st.chat_message(msg["role"]).write(msg["content"])
 
     if prompt := st.chat_input():
-        st.chat_message("user").write(prompt)
+        st.empty()
         st.session_state.messages.append({"role": "user", "content": prompt})
+        st.chat_message("user").write(prompt)
+        
         response = None
         with st.chat_message("assistant"):
             st.write("🧠 thinking...")
@@ -39,8 +41,9 @@ def main():
                 st.session_state.thread_id = response["thread_id"]
             else:
                 response = agent_executor.invoke({"content": prompt, "thread_id": st.session_state.thread_id})
-            st.write(response["output"])
             st.session_state.messages.append({"role": "assistant", "content": response["output"]})
+            st.write(response["output"])
+            
 
 if __name__ == '__main__':
     main()

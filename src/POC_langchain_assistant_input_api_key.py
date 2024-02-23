@@ -44,11 +44,11 @@ def main():
                     response = agent_executor.invoke({"content": prompt, "thread_id": st.session_state.thread_id})
                 st.session_state.messages.append({"role": "assistant", "content": response["output"]})
                 st.write(response["output"])
-        # except:
-        #     st.info("Your OpenAI API KEY is unavailable or not correct.")
-        #     st.stop()
-        except Exception as e:  # 捕获所有可能的异常
-            st.error(f"An error occurred: {e}")
+        except:
+            st.info("Your OpenAI API KEY is unavailable or not correct.")
+            st.stop()
+        # except Exception as e:  # 捕获所有可能的异常
+        #     st.error(f"An error occurred: {e}")
 
 if __name__ == '__main__':
     main()

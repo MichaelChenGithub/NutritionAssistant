@@ -10,7 +10,7 @@ load_dotenv()
 def main():
     st.set_page_config(page_title="Nourish X", page_icon="🥚")
     st.title("🥚 Nourish X")
-    OPENAI_APIKEY = os.environ.get("OPEN_AI_KEY")
+    # OPENAI_APIKEY = os.environ.get("OPEN_AI_KEY")
     openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
 
     if 'messages' not in st.session_state:

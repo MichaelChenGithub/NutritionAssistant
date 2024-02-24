@@ -31,6 +31,6 @@ Recent research featured in the Journal of the American Medical Association (JAM
 
 ## Assistant's utilized Information Websites
 
-- Recipes : BBC Good Food (https://www.bbcgoodfood.com/)
+- Recipes : TheMealDB (https://www.themealdb.com/api.php)
 - Food Nutrition : Nutritionix (https://www.nutritionix.com/)
 - Restaurant Food : Nutritionix (https://www.nutritionix.com/)

@@ -1,8 +1,10 @@
 from langchain.tools import StructuredTool
 from langchain.pydantic_v1 import BaseModel, Field
-from langchain_community.tools import DuckDuckGoSearchRun
+from langchain_community.utilities import GoogleSearchAPIWrapper
 from assistant_tool_recipe import * 
 from assistant_tool_nutrition import * 
+
+
 
 class RecipeInput(BaseModel):
     query: str = Field(description="food name")
@@ -12,6 +14,9 @@ class NutritionInput(BaseModel):
 
 class RestaurantInput(BaseModel):
     query: str = Field(description="general food name")
+
+class GoogleSearch(BaseModel):
+    query: str = Field(description="search query")
 
 def get_tools():
     recipe_tool = StructuredTool.from_function(
@@ -32,5 +37,11 @@ def get_tools():
         description="Find restaurant food options",
         args_schema=RestaurantInput
     )
-    tools = [DuckDuckGoSearchRun(), recipe_tool, nutrition_tool, restaurant_food_tool]
+    google_search_tool = StructuredTool.from_function(
+        func=GoogleSearchAPIWrapper().run,
+        name="google_search",
+        description="Search Google for related results",
+        args_schema=GoogleSearch
+    )
+    tools = [recipe_tool, nutrition_tool, restaurant_food_tool, google_search_tool]
     return tools

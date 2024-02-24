@@ -34,23 +34,26 @@ def main():
             st.info("Please enter the password to continue.")
             st.stop()
         if password == TESTING_PASSWORD:
-            assistant_id = "asst_F3YhhK6JzfaQPlekDgCGTK9X"
-            agent = OpenAIAssistantRunnable(client= OpenAI(api_key=OPENAI_APIKEY), assistant_id=assistant_id, as_agent=True, verbose=True)
-            agent_executor = AgentExecutor(agent=agent, tools=get_tools(), verbose=True)
-            with st.chat_message("assistant"):
-                st.write("🧠 thinking...")
-                if 'thread_id' not in st.session_state:
-                    response = agent_executor.invoke({"content": prompt})
-                    
-                    st.session_state.thread_id = response["thread_id"]
-                else:
-                    response = agent_executor.invoke({"content": prompt, "thread_id": st.session_state.thread_id})
-                st.session_state.messages.append({"role": "assistant", "content": response["output"]})
-                st.write(response["output"])
-
+            try:
+                assistant_id = "asst_F3YhhK6JzfaQPlekDgCGTK9X"
+                agent = OpenAIAssistantRunnable(client= OpenAI(api_key=OPENAI_APIKEY), assistant_id=assistant_id, as_agent=True, verbose=True)
+                agent_executor = AgentExecutor(agent=agent, tools=get_tools(), verbose=True)
+                with st.chat_message("assistant"):
+                    st.write("🧠 thinking...")
+                    if 'thread_id' not in st.session_state:
+                        response = agent_executor.invoke({"content": prompt})
+                        
+                        st.session_state.thread_id = response["thread_id"]
+                    else:
+                        response = agent_executor.invoke({"content": prompt, "thread_id": st.session_state.thread_id})
+                    st.session_state.messages.append({"role": "assistant", "content": response["output"]})
+                    st.write(response["output"])
+            except Exception as e:
+                st.error(f"An error occurred: {e}")
         else:
             # st.info("Your password is not correct.")
             # st.stop()
+            # st.error("Your password is wrong.")
             st.error("Your password is wrong.")
     
 

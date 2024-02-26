@@ -11,7 +11,7 @@ from openai import OpenAI
 
 load_dotenv()
 
-def main():
+async def main():
     st.set_page_config(page_title="Nourish", page_icon="🥚")
     st.title("🥚 Nourish")
     OPENAI_APIKEY = os.environ.get("OPEN_AI_KEY")
@@ -36,15 +36,15 @@ def main():
         if password == TESTING_PASSWORD:
             try:
                 assistant_id = "asst_StvZ1ZoK8FFnggi1AiUvBU7S"
-                agent = OpenAIAssistantRunnable(client= OpenAI(api_key=OPENAI_APIKEY), assistant_id=assistant_id, as_agent=True, verbose=True, max_execution_time=1, early_stopping_method="generate")
+                agent = OpenAIAssistantRunnable(client= OpenAI(api_key=OPENAI_APIKEY), assistant_id=assistant_id, as_agent=True, verbose=True)
                 agent_executor = AgentExecutor(agent=agent, tools=get_tools(), verbose=True)
                 with st.chat_message("assistant"):
                     st.write("🧠 thinking...")
                     if 'thread_id' not in st.session_state:
-                        response = agent_executor.invoke({"content": prompt})
+                        response = await agent_executor.ainvoke({"content": prompt})
                         st.session_state.thread_id = response["thread_id"]
                     else:
-                        response = agent_executor.invoke({"content": prompt, "thread_id": st.session_state.thread_id})
+                        response = await agent_executor.ainvoke({"content": prompt, "thread_id": st.session_state.thread_id})
                     st.session_state.messages.append({"role": "assistant", "content": response["output"]})
                     st.write(response["output"])
             except Exception as e:
@@ -58,4 +58,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())
